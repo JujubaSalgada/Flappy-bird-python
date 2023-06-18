@@ -11,9 +11,14 @@ loopGame = True
 
 while loopGame:
     intro = Intro(tela)
+    fim = Over(tela)
 
     intro.rum()
     if intro.closeGame:
+        break
+
+    fim.rum()
+    if fim.closeGame:
         break
 
     """
@@ -23,13 +28,12 @@ while loopGame:
     fim.rum()
     if fim.closeGame:
         break
+        
     jogo.rum()
     if jogo.closeGame:
         break
     """
 
-    intro.rum()
-    if intro.closeGame:
-        break
+
 
 pygame.quit()
