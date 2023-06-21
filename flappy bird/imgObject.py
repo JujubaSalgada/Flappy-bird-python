@@ -20,7 +20,7 @@ class ButtonStart(pygame.sprite.Sprite):
 
         self.image = self.imagem
         self.rect = self.image.get_rect()
-        self.rect.topleft = 50, 220
+        self.rect.topleft = 130, 350
 
 class Bird(pygame.sprite.Sprite):
     def __init__(self):
@@ -84,5 +84,3 @@ class Ground(pygame.sprite.Sprite):
             self.kill()
 
         
-
-

@@ -17,11 +17,15 @@ class Intro():
     def rum(self):
         while self.laco_jogo:
             py.time.Clock().tick(50)
-            (self.xMouse, self.yMouse) = py.mouse.get_pos()
+            (self.x_mouse, self.y_mouse) = py.mouse.get_pos()
             for event in py.event.get():
                 if event.type == py.QUIT:
                     self.laco_jogo = False
                     self.closeGame = True
+                if event.type == py.MOUSEBUTTONUP:
+
+                    if self.x_mouse > 130 and self.x_mouse < (130+52*3) and self.y_mouse > 350 and self.y_mouse < (350+29*3):
+                        self.laco_jogo = False
             
         
             self.tela.fill('black')
