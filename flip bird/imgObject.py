@@ -66,9 +66,12 @@ class Bird(pygame.sprite.Sprite):
     def Click(self):
         self.y_acceleration = -5
 
+
 class Ground(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
+        self.imagem = pygame.image.load('sprites/chao.png')
+        
         
 
 

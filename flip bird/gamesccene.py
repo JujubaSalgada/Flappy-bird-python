@@ -11,7 +11,9 @@ class Game():
 
         self.fps = py.time.Clock()
         self.bird = Bird()
-        self.grupo = py.sprite.Group(self.bird)
+
+        self.playerGroup = py.sprite.Group(self.bird)
+        self.groundGroup = py.sprite.Group()
 
 
     def rum(self):
@@ -29,8 +31,8 @@ class Game():
             self.bird.gravidade(self.seconds)
 
             self.tela.blit(self.background, (0, 0))
-            self.grupo.draw(self.tela)
-            self.grupo.update()
+            self.playerGroup.draw(self.tela)
+            self.playerGroup.update()
             print(self.bird.y_acceleration)
             py.display.flip()
 
