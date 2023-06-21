@@ -4,7 +4,7 @@ from endgame import Over
 import pygame
 
 pygame.init()
-tela = pygame.display.set_mode((300, 450))
+tela = pygame.display.set_mode((432, 762))
 pygame.display.set_caption("Flip bird - python")
 
 loopGame = True

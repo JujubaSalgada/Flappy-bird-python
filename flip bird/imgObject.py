@@ -22,7 +22,6 @@ class ButtonStart(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = 50, 220
 
-
 class Bird(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
@@ -48,6 +47,13 @@ class Bird(pygame.sprite.Sprite):
         else:
             self.numerator = 0
         self.image = self.imagens[int(self.numerator)]
+
+        if self.y_acceleration > 5 :
+            self.image = pygame.transform.rotate(self.image, -10)
+        elif self.y_acceleration < 4:
+            self.image = pygame.transform.rotate(self.image, 10)
+        else:
+            self.image = pygame.transform.rotate(self.image, 0)
         
     def gravidade(self, seconds):
         self.time = seconds
@@ -57,7 +63,8 @@ class Bird(pygame.sprite.Sprite):
         self.y_position += self.y_acceleration
         self.rect.topleft = self.x_position, self.y_position
 
-
+    def Click(self):
+        self.y_acceleration = -5
 
 
 
