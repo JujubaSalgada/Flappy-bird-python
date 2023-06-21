@@ -7,29 +7,26 @@ class Intro():
         self.laco_jogo = True
         self.closeGame = False
 
-        self.imgFundo = py.image.load('imagens/background.jpg')
-        self.logo = py.image.load('imagens/logo.png')
+        self.background = py.transform.scale(py.image.load('sprites/background1.png').convert_alpha(), (432, 762))
+        self.getReady = py.transform.scale(py.image.load('sprites/logo.png').convert_alpha(), (89*3, 24*3))
 
-        self.botao = ButtonStart()
-        self.grupo = py.sprite.Group(self.botao)
-        
+        self.button = ButtonStart()
+        self.buttonGroup = py.sprite.Group()
+        self.buttonGroup.add(self.button)
 
     def rum(self):
         while self.laco_jogo:
+            py.time.Clock().tick(50)
             (self.xMouse, self.yMouse) = py.mouse.get_pos()
             for event in py.event.get():
                 if event.type == py.QUIT:
                     self.laco_jogo = False
                     self.closeGame = True
-                
-                if event.type == py.MOUSEBUTTONUP:
-                    if self.xMouse > 50 and self.xMouse < 250 and self.yMouse > 220 and self.yMouse < 420:
-                        self.laco_jogo = False
             
         
             self.tela.fill('black')
-            self.tela.blit(self.imgFundo, (0, 0))
-            self.tela.blit(self.logo, (40, 10))
-            self.grupo.draw(self.tela)
+            self.tela.blit(self.background, (0, 0))
+            self.tela.blit(self.getReady, (80, 50))
+            self.buttonGroup.draw(self.tela)
             py.display.flip()
         

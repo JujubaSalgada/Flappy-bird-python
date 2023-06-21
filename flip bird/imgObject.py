@@ -16,7 +16,7 @@ class ButtonStart(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
 
-        self.imagem = pygame.image.load('imagens/play.png').convert_alpha()
+        self.imagem = pygame.transform.scale(pygame.image.load('sprites/playButton.png').convert_alpha(), (52*3, 29*3))
 
         self.image = self.imagem
         self.rect = self.image.get_rect()
@@ -68,10 +68,21 @@ class Bird(pygame.sprite.Sprite):
 
 
 class Ground(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, p = 0):
         pygame.sprite.Sprite.__init__(self)
-        self.imagem = pygame.image.load('sprites/chao.png')
-        
+        self.scaleX = 168*3
+        self.scaleY = 55*3
+        self.xPosition = p
+        self.image = pygame.transform.scale(pygame.image.load('sprites/chao.png').convert_alpha(), (self.scaleX, self.scaleY))
+        self.rect = self.image.get_rect()
+        self.rect.topleft = self.xPosition, (762 - self.scaleY)
+    
+    def update(self):
+        self.xPosition -= 4
+        self.rect.topleft = self.xPosition, (762 - self.scaleY)
+        if self.xPosition < -432:
+            self.kill()
+
         
 
 

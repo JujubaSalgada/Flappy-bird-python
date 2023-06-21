@@ -9,9 +9,14 @@ pygame.display.set_caption("Flip bird - python")
 
 loopGame = True
 
-jogo = Game(tela)
-
 while loopGame:
+    intro = Intro(tela)
+    jogo = Game(tela)
+
+    intro.rum()
+    if intro.closeGame:
+        break 
+
     jogo.rum()
     if jogo.closeGame:
         break
