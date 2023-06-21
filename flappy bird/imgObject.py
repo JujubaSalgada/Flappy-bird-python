@@ -81,4 +81,32 @@ class Ground(pygame.sprite.Sprite):
         if self.xPosition < -432:
             self.kill()
 
+class CanoUp(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        self.x = x
+        self.y = y
+        self.image = pygame.transform.scale(pygame.image.load('sprite/canoUp.png').convert_alpha(), (26*3, 160*3))
+        self.rect = self.image.get_rect()
+        self.rect.topleft = self.x,  self.y
+
+    def update(self):
+        self.x -= 4
+        self.rect.topleft = self.x,  self.y
+
+class CanoDown(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        self.x = x
+        self.y = y
+        self.image = pygame.transform.scale(pygame.image.load('sprite/canoDown.png').convert_alpha(), (26*3, 160*3))
+        self.rect = self.image.get_rect()
+        self.rect.topleft = self.x,  self.y
+
+    def update(self):
+        self.x -= 4
+        self.rect.topleft = self.x,  self.y
+        if self.x < -10:
+            self.kill()
+
         

@@ -1,7 +1,9 @@
 import pygame as py
 from imgObject import Bird
 from imgObject import Ground
+from imgObject import CanoDown
 from time import sleep
+from random import randint
 
 class Game():
     def __init__(self, tela):
@@ -20,6 +22,10 @@ class Game():
         self.playerGroup.add(self.bird)
         self.groundGroup = py.sprite.Group()
         self.groundGroup.add(Ground())
+        self.canoGroup = py.sprite.Group()
+
+        self.controlador_tempo = 0
+        self.tempo = 0
 
 
     def rum(self):
@@ -47,14 +53,27 @@ class Game():
             else:
                 self.bird.gravidade(self.seconds)
                 
+            # Geração aleátoria de canos
+ 
 
-            self.tela.blit(self.background, (0, 0))
+            
             # Desenhando sprites na tela
+            self.tela.blit(self.background, (0, 0))
+
             self.playerGroup.draw(self.tela)
+            self.canoGroup.draw(self.tela)
             self.groundGroup.draw(self.tela)
+        
             # Função update dos objetos
             self.playerGroup.update()
             self.groundGroup.update()
+            self.canoGroup.update()
             
+            self.controlador_tempo += 1
+            if self.controlador_tempo == 50:
+                self.tempo += 1
+                self.controlador_tempo = 0
+            
+            print(self.tempo)
             py.display.flip()
 
