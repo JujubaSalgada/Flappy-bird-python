@@ -11,7 +11,6 @@ class ButtonRetry(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = 110, 200
 
-
 class ButtonStart(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
@@ -65,7 +64,6 @@ class Bird(pygame.sprite.Sprite):
 
     def Click(self):
         self.y_acceleration = -5
-
 
 class Ground(pygame.sprite.Sprite):
     def __init__(self, p = 0):
