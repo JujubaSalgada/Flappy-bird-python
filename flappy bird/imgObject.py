@@ -1,15 +1,6 @@
 import pygame
 pygame.init()
 
-class ButtonRetry(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-
-        self.imagem = pygame.image.load('imagens/retry.png').convert_alpha()
-
-        self.image = self.imagem
-        self.rect = self.image.get_rect()
-        self.rect.topleft = 110, 200
 
 class ButtonStart(pygame.sprite.Sprite):
     def __init__(self):
@@ -27,7 +18,7 @@ class Bird(pygame.sprite.Sprite):
         self.scaleBird = 2 #Quantidade de vezes que a imagem será ampliada
         self.numerator = 0
         self.x_position = 100 #Posição da imagem em x
-        self.y_position = 50 #Posição da imagem em y
+        self.y_position = 150 #Posição da imagem em y
         self.y_acceleration = 0 #Aceleração do objeto no eixo y
         self.gravity = 9.807 #Aceleração da gravidade
 
