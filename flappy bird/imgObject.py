@@ -101,5 +101,4 @@ class CanoDown(pygame.sprite.Sprite):
         self.rect.topleft = self.x,  self.y
         if self.x < -100:
             self.kill()
-
-        
+             

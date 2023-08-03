@@ -14,10 +14,14 @@ class Game():
         py.display.set_caption("Flip bird - python")
         self.laco_jogo = True
         self.primeiroClick = False
+        self. estadoDoJogo = 'inicial'
 
         # Carregando das imagens imagem
         self.background = py.transform.scale(py.image.load('sprites/background1.png').convert_alpha(), (432, 762))
+
         self.getReady = py.transform.scale(py.image.load('sprites/logo.png').convert_alpha(), (89*3, 24*3))
+
+        self.gameOver = py.transform.scale(py.image.load('sprites/gameOver.png').convert_alpha(), (96*3, 21*3))
 
         self.fps = py.time.Clock()
         self.bird = Bird()
@@ -80,27 +84,30 @@ class Game():
 
             if self.colisaoChao:
                 sleep(1)
-                self.laco_jogo = False # Vai fechar o laço self.laco_jogo
+                self.estadoDoJogo = 'final'
+   
+            if self.estadoDoJogo == 'jogando':
+                self.bird.gravidade(self.seconds)
+
+                #Controlando a aparição de objetos CanoDown
+                self.canoDownList = list(self.canoDownGroup)
+                if self.canoDownList[-1].x == 140:
+                    self.canoDownGroup.add(CanoDown(self.yCano))
+
+                #Controlando a aparição de objetos CanoUp
+                self.canoUpList = list(self.canoUpGroup)
+                if self.canoUpList[-1].x == 140:
+                    self.canoUpGroup.add(CanoUp(480+self.yCano+120))
+                
+            elif self.estadoDoJogo == 'inicial':
+                self.bird.gravidade(self.seconds)
+                self.tela.blit(self.getReady, (80, 50))
+                self.buttonGroup.draw(self.tela)
+                if self.controlador_tempo == 15:
+                    self.bird.Click()
+            
             else:
-                if self.primeiroClick:
-                    self.bird.gravidade(self.seconds)
-
-                    #Controlando a aparição de objetos CanoDown
-                    self.canoDownList = list(self.canoDownGroup)
-                    if self.canoDownList[-1].x == 140:
-                        self.canoDownGroup.add(CanoDown(self.yCano))
-
-                    #Controlando a aparição de objetos CanoUp
-                    self.canoUpList = list(self.canoUpGroup)
-                    if self.canoUpList[-1].x == 140:
-                        self.canoUpGroup.add(CanoUp(480+self.yCano+120))
-                    
-                else:
-                    self.bird.gravidade(self.seconds)
-                    self.tela.blit(self.getReady, (80, 50))
-                    self.buttonGroup.draw(self.tela)
-                    if self.controlador_tempo == 15:
-                        self.bird.Click()
+                self.laco_jogo = False
                 
             # Função update dos objetos
             self.playerGroup.update()
@@ -113,9 +120,9 @@ class Game():
                     self.laco_jogo = False
                 
                 if event.type == py.MOUSEBUTTONUP: #evento de pulo com o clique do mouse
-                    if self.primeiroClick == False:
+                    if self.estadoDoJogo == 'inicial':
                         if self.x_mouse > 130 and self.x_mouse < (130+52*3) and self.y_mouse > 350 and self.y_mouse < (350+29*3):
-                            self.primeiroClick = True
+                            self.estadoDoJogo = 'jogando'
                             self.canoDownGroup.add(CanoDown(self.yCano))
                             self.canoUpGroup.add(CanoUp(480+self.yCano+120))
                     else:
