@@ -1,11 +1,14 @@
+# Creat by Miquéias Ferreira dos santos 
+# GitHub jujubaSalgada / Youtube goticula
+# Youtube Channel: https://www.youtube.com/@goticula/videos
+# this code was created only for  funny and study
+
+
 import pygame as py
-from imgObject import Bird
-from imgObject import Ground
-from imgObject import ButtonStart
-from imgObject import CanoUp
-from imgObject import CanoDown
+from imgObject import *
 from time import sleep
 from random import randint
+
 py.init()
 
 class Game():
@@ -17,9 +20,7 @@ class Game():
 
         # Carregando das imagens imagem
         self.background = py.transform.scale(py.image.load('sprites/background1.png').convert_alpha(), (432, 762))
-
         self.getReady = py.transform.scale(py.image.load('sprites/logo.png').convert_alpha(), (89*3, 24*3))
-
         self.gameOver = py.transform.scale(py.image.load('sprites/gameOver.png').convert_alpha(), (96*3, 21*3))
 
         self.fps = py.time.Clock()
@@ -47,8 +48,9 @@ class Game():
 
             self.controlador_tempo = 0
             self.segundos = 0
+
             while self.laco_jogo:  
-                self.fps.tick(50) # Configuração do fps
+                self.fps.tick(50)
                 self.yCano = randint(-300, -70)
 
                 # Manipulando o tempo
@@ -57,7 +59,7 @@ class Game():
                     self.segundos += 1
                     self.controlador_tempo = 0
 
-                #Detecção da posição no mouse
+                # Detecção da posição no mouse
                 (self.x_mouse, self.y_mouse) = py.mouse.get_pos()
 
                 # Desenhando sprites na tela
@@ -82,21 +84,25 @@ class Game():
                 self.colisaoCanoDown = py.sprite.spritecollide(self.bird, self.canoDownGroup, False) # Pássaro - canodown
 
                 if self.colisaoChao or self.colisaoCanoUp or self.colisaoCanoDown:
-                    sleep(1)
                     self.estadoDoJogo = 'final'
     
                 if self.estadoDoJogo == 'jogando':
                     self.bird.gravidade(self.seconds)
 
-                    #Controlando a aparição de objetos CanoDown
+                    # Controlando a aparição de objetos CanoDown
                     self.canoDownList = list(self.canoDownGroup)
                     if self.canoDownList[-1].x == 140:
                         self.canoDownGroup.add(CanoDown(self.yCano))
 
-                    #Controlando a aparição de objetos CanoUp
+                    # Controlando a aparição de objetos CanoUp
                     self.canoUpList = list(self.canoUpGroup)
                     if self.canoUpList[-1].x == 140:
                         self.canoUpGroup.add(CanoUp(480+self.yCano+120))
+                    
+                    self.playerGroup.update()
+                    self.groundGroup.update()
+                    self.canoDownGroup.update()
+                    self.canoUpGroup.update()
                     
                 elif self.estadoDoJogo == 'inicial':
                     self.bird.gravidade(self.seconds)
@@ -104,15 +110,14 @@ class Game():
                     self.buttonGroup.draw(self.tela)
                     if self.controlador_tempo == 15:
                         self.bird.Click()
+                    self.playerGroup.update()
+                    self.groundGroup.update()
                 
-                else:
-                    self.laco_jogo = False
+                #Quando o jogador bater em algum lugar / self.estadoDoJogo == 'final' 
+                else: 
+                    self.tela.blit(self.gameOver, (80, 100))
+                    self.buttonGroup.draw(self.tela)
                     
-                # Função update dos objetos
-                self.playerGroup.update()
-                self.groundGroup.update()
-                self.canoDownGroup.update()
-                self.canoUpGroup.update()
 
                 for event in py.event.get():
                     if event.type == py.QUIT:
@@ -125,6 +130,9 @@ class Game():
                                 self.estadoDoJogo = 'jogando'
                                 self.canoDownGroup.add(CanoDown(self.yCano))
                                 self.canoUpGroup.add(CanoUp(480+self.yCano+120))
+                        elif self.estadoDoJogo == 'final':
+                            if self.x_mouse > 130 and self.x_mouse < (130+52*3) and self.y_mouse > 350 and self.y_mouse < (350+29*3):
+                                self.laco_jogo = False
                         else:
                             self.bird.Click() 
                 
