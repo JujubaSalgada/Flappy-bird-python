@@ -10,5 +10,4 @@ lib: Pygame
 
 Obs: created for fun
 
-
-![Captura de tela 2023-08-02 215818](https://github.com/JujubaSalgada/Flappy-bird-python/assets/102774611/05c6056e-efd2-49d4-aabb-c1404aff3f96)
+![imagemProGithub](https://github.com/JujubaSalgada/Flappy-bird-python/assets/102774611/a4add189-5890-4c02-9dd2-97459109472a)
